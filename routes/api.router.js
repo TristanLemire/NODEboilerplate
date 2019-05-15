@@ -30,8 +30,26 @@ Définition des CRUD
       - title
       - content
     */
+      if(
+        req.body && 
+        req.body.title.length > 0 &&
+        req.body.content.length > 0
+      ){
+        // Definir l'item
+        const newItem = { title: req.body.title, content: req.body.content };
 
-    res.json({ msg: 'Create Article', data: req.body })
+        // Enregistrer l'item
+        connexion.query(`INSERT INTO post SET ?`, newItem, (err, result, fields) => {
+          if( err ) {
+            res.json({ msg: 'Connexion fail', data: err })
+          } else{
+            res.json({ msg: 'Create Article', data: result })
+          }
+        })
+      } else {
+        res.json({ msg: 'No data', data: null })
+      }
+   //
   });
 
   // Read all Items: GET
