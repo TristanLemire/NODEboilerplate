@@ -6,6 +6,20 @@ const router = express.Router();
 //
 
 /*
+  Configuration MySQL
+*/
+  const mysql = require('mysql');
+  const connexion = mysql.createConnection({
+    host      : 'localhost',
+    user      : 'root',
+    password  : 'root',
+    port      : 8889,
+    database  : 'node-boiler-plate'
+  });
+  connexion.connect();
+//
+
+/*
 Définition des CRUD
 */
   // Create Item: POST
@@ -17,7 +31,7 @@ Définition des CRUD
       - content
     */
 
-    res.json({ msg: 'Create Article' })
+    res.json({ msg: 'Create Article', data: req.body })
   });
 
   // Read all Items: GET
@@ -47,7 +61,6 @@ Définition des CRUD
     res.json({ msg: 'Delete one Article' })
   });
 //
-
 
 /*
 Exporter le module de route
